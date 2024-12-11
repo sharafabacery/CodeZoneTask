@@ -7,16 +7,16 @@ namespace CodeZoneTask.Controllers
 {
     public class ItemController : Controller
     {
-        private readonly IItemService itemService;
+        private readonly IGenericService<Item> genericService;
 
-        public ItemController(IItemService itemService)
+        public ItemController(IGenericService<Item> genericService)
         {
-            this.itemService = itemService;
+            this.genericService = genericService;
         }
         public async Task<IActionResult> Index()
         {
             List<Item> items = new List<Item>();
-            items = await itemService.GetItems();
+            items = await genericService.Get();
             ViewData["items"] = items;
             return View();
         }
@@ -24,21 +24,21 @@ namespace CodeZoneTask.Controllers
         {
             if (ModelState.IsValid)
             {
-                var itemdb = await itemService.AddItem(item);
+                var itemdb = await genericService.Add(item);
 
             }
             return RedirectToAction("Index", "Item");
         }
         public async Task<IActionResult> Delete(int id)
         {
-            var item = await itemService.DeleteItem(id);
+            var item = await genericService.Delete(id);
             return RedirectToAction("Index", "Item");
         }
-        public async Task<IActionResult> Edit(Item item)
+        public async Task<IActionResult> Edit(int id,Item item)
         {
             if (ModelState.IsValid)
             {
-                var itemdb = await itemService.EditItem(item);
+                var itemdb = await genericService.Edit(id,item);
 
             }
             return RedirectToAction("Index", "Item");

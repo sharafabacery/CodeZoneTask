@@ -7,16 +7,16 @@ namespace CodeZoneTask.Controllers
 {
     public class StoreController : Controller
     {
-        private readonly IStoreService storeService;
+        private readonly IGenericService<Store> genericService;
 
-        public StoreController(IStoreService storeService)
+        public StoreController( IGenericService<Store> genericService)
         {
-            this.storeService = storeService;
+            this.genericService = genericService;
         }
         public async Task< IActionResult> Index()
         {
             List<Store> stores = new List<Store>();
-            stores=await storeService.GetStores();
+            stores=await genericService.Get();
             ViewData["stores"] = stores;
             return View();
         }
@@ -24,21 +24,21 @@ namespace CodeZoneTask.Controllers
         {
             if (ModelState.IsValid)
             {
-                var storedb = await storeService.AddStore(store);
+                var storedb = await genericService.Add(store);
                 
             }
            return RedirectToAction("Index","Store");
         }
         public async Task<IActionResult>Delete(int id)
         {
-            var store =await storeService.DeleteStore(id);
+            var store =await genericService.Delete(id);
             return RedirectToAction("Index", "Store");
         }
-        public async Task<IActionResult> Edit(Store store)
+        public async Task<IActionResult> Edit(int id,Store store)
         {
             if (ModelState.IsValid)
             {
-                var storedb = await storeService.EditStore(store);
+                var storedb = await genericService.Edit(id,store);
 
             }
             return RedirectToAction("Index", "Store");
