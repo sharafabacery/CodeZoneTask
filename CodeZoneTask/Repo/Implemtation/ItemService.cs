@@ -36,9 +36,9 @@ namespace CodeZoneTask.Repo.Implemtation
             }
         }
 
-        public async Task<Item> EditItem(int id, Item item)
+        public async Task<Item> EditItem( Item item)
         {
-            var itemEntity = await applicationDbContext.Items.FirstOrDefaultAsync(x => x.Id == id);
+            var itemEntity = await applicationDbContext.Items.FirstOrDefaultAsync(x => x.Id == item.Id);
             if (itemEntity != null)
             {
                 itemEntity.Name = item.Name;

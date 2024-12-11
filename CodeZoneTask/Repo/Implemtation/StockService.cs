@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CodeZoneTask.Repo.Implemtation
 {
-    public class StockServices : IStockServices
+    public class StockService : IStockService
     {
         private readonly ApplicationDbContext applicationDbContext;
 
-        public StockServices(ApplicationDbContext applicationDbContext)
+        public StockService(ApplicationDbContext applicationDbContext)
         {
             this.applicationDbContext = applicationDbContext;
         }
@@ -43,7 +43,8 @@ namespace CodeZoneTask.Repo.Implemtation
                 StoreId=e.StoreId,
                 Quantity=e.Quantity,
                 ItemName=e.Item.Name,
-                StoreName=e.Store.Name
+                StoreName=e.Store.Name,
+                Id=e.Id
             }).AsQueryable().ToListAsync();
             return stores;
         }

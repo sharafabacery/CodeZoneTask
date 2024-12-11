@@ -1,0 +1,72 @@
+﻿@model CodeZoneTask.Data.Store
+@using CodeZoneTask.Data
+@{
+    ViewData["Title"] = "Index";
+    var stores = ViewData["stores"] as List<Store> ; // Use the strongly-typed model directly
+}
+
+<h1>Index</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Id
+            </th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+       
+            @foreach (var item in stores)
+            {
+                <tr>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                    <button type="button" class="btn btn-primary" onclick="showDetails(@Html.DisplayFor(modelItem => item.Id), '@Html.DisplayFor(modelItem => item.Name)')">
+                        Edit
+                    </button>
+                        
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+      
+    </tbody>
+</table>
+<div id="myDIV" style="display:none">
+    <form asp-action="Edit" asp-controller="Store">
+        <div class="form-group">
+
+            <label asp-for="Id" hidden="hidden">Id</label>
+            <input asp-for="Id" type="number" class="form-control" hidden="hidden" id="id">
+        </div>
+        <div class="form-group">
+            
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" type="text" class="form-control" required id="name">
+        </div>
+        <div class="submit-section">
+            <button type="submit" class="btn btn-primary submit-btn">Save edits</button>
+        </div>
+    </form>
+</div>
+<p>
+    <form asp-action="Add" asp-controller="Store">
+        <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" type="text" class="form-control" required>
+        </div>
+        <div class="submit-section">
+            <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+        </div>
+    </form>
+</p>
+

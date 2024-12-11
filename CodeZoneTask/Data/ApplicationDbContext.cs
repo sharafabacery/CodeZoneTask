@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using CodeZoneTask.DTO;
 
 namespace CodeZoneTask.Data
 {
@@ -11,6 +12,7 @@ namespace CodeZoneTask.Data
         public DbSet<Item> Items { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<StoreItem> StoreItems { get; set; }
+        public DbSet<CodeZoneTask.DTO.StockDTO> StockDTO { get; set; } = default!;
 
     }
 }

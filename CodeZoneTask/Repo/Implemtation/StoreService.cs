@@ -35,9 +35,9 @@ namespace CodeZoneTask.Repo.Implemtation
             }
         }
 
-        public async Task<Store> EditStore(int id,Store store)
+        public async Task<Store> EditStore(Store store)
         {
-            var storeEntity=await applicationDbContext.Stores.FirstOrDefaultAsync(x=>x.Id==id);
+            var storeEntity=await applicationDbContext.Stores.FirstOrDefaultAsync(x=>x.Id==store.Id);
             if (storeEntity != null) {
                 storeEntity.Name = store.Name;
                 var entityUpdated=await applicationDbContext.SaveChangesAsync();

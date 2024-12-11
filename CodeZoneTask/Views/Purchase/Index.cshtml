@@ -1,0 +1,83 @@
+﻿@model CodeZoneTask.Data.StoreItem
+@using CodeZoneTask.DTO
+@using CodeZoneTask.Data
+@{
+    ViewData["Title"] = "Index";
+    var stocks = ViewData["stocks"] as List<StockDTO>; // Use the strongly-typed model directly
+    var items = ViewData["items"] as List<Item>; // Use the strongly-typed model directly
+    var stores = ViewData["stores"] as List<Store>; // Use the strongly-typed model directly
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                Store Name
+            </th>
+            
+            <th>
+                Item Name
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in stocks)
+        {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.StoreName)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<p>
+    <form asp-action="Add" asp-controller="Purchase">
+        <div class="form-group">
+            <label asp-for="StoreId">Store</label>
+            <select asp-for="StoreId" required>
+                @foreach(var store in stores)
+                {
+                    <option value="@store.Id">@store.Name</option>
+                }
+            </select>
+           
+        </div>
+        <div class="form-group">
+            <label asp-for="ItemId">Item</label>
+            <select asp-for="ItemId" required>
+                @foreach (var item in items)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Quantity">Quantity</label>
+            <input asp-for="Quantity" type="int" class="form-control" required>
+        </div>
+        <div class="submit-section">
+            <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+        </div>
+    </form>
+</p>

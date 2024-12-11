@@ -1,10 +1,15 @@
 using CodeZoneTask.Data;
+using CodeZoneTask.Repo.Implemtation;
+using CodeZoneTask.Repo.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IStoreService, StoreService>();
+builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IStockService, StockService>();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 
